@@ -96,6 +96,41 @@ Intrusion Prevention System (IPS) and Application Control provide advanced threa
   ```bash
   diagnose ips anomaly list
   diagnose debug application ipsmonitor -1
+
+  # various ips toggle and stat options
+diagnose test application ipsmonitor 
+
+IPS Engine Test Usage:
+
+    1: Display IPS engine information
+    2: Toggle IPS engine enable/disable status
+    3: Display restart log
+    4: Clear restart log
+    5: Toggle bypass status
+    6: Submit attack characteristics now
+   10: IPS queue length
+   11: Clear IPS queue length
+   12: IPS L7 socket statistics
+   13: IPS session list
+   14: IPS NTurbo statistics
+   15: IPSA statistics
+   18: Display session info cache
+   19: Clear session info cache
+   21: Reload FSA malicious URL database
+   22: Reload allowlist URL database
+   24: Display Flow AV statistics
+   25: Reset Flow AV statistics
+   32: Reload certificate blocklist database
+   40: Display packet log statistics
+   41: Reset packet log statistics
+   42: Device notification statistics
+   43: AV exempt statistics
+   44: Dump IPS stack backtrace
+   45: Virtual patch query statistics
+   96: Toggle IPS engines watchdog timer
+   97: Start all IPS engines
+   98: Stop all IPS engines
+   99: Restart all IPS engines and monitor
   ```
 
 - Application Control:
