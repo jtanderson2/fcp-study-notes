@@ -1,1 +1,1 @@
-# Summary study notes based on official Fortinet content
+Summary study notes based on official Fortinet content
