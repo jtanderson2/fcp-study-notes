@@ -1,1 +1,1 @@
-# fcp-study-notes
+# Summary study notes based on official Fortinet content
