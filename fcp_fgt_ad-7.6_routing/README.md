@@ -1,4 +1,4 @@
-# FortiGate 7.6 – Routing
+# FortiGate 7.6 – Section 3: Routing
 
 ## Routing Overview
 
