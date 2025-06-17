@@ -1,128 +1,146 @@
-# FortiGate 7.6 – Section 13: Diagnostics
+# FortiGate 7.6 – Section 15: Diagnostics and Troubleshooting
 
 ## Overview
 
-FortiGate provides powerful diagnostic tools via CLI and GUI to troubleshoot network, system, and security issues. These tools are essential for administrators to maintain optimal operation and identify problems quickly.
+FortiGate provides comprehensive diagnostic tools through both the CLI and GUI for resolving configuration issues, performance problems, and security event analysis. Proactive monitoring and regular diagnostics help ensure optimal firewall operation.
 
-## System Diagnostic Tools
+## System and Interface Diagnostics
 
-### Basic CLI Commands
-- View system status:
+### Basic Checks
+- View firmware and system status:
   ```bash
   get system status
   ```
-- Show interface status and IPs:
+- List all configured interfaces and their states:
   ```bash
+  get system interface physical
   get system interface
   ```
-- Ping test:
+
+### Ping and Traceroute
+- Test connectivity:
   ```bash
-  execute ping <IP/FQDN>
-  ```
-- Traceroute test:
-  ```bash
-  execute traceroute <IP/FQDN>
-  ```
-- DNS resolution test:
-  ```bash
-  execute dns lookup <domain>
+  execute ping <destination>
+  execute traceroute <destination>
   ```
 
-## Log Diagnostics
+### DNS Resolution
+- Test name resolution:
+  ```bash
+  execute dns lookup <hostname>
+  ```
 
-### View Logs
-- GUI: Log & Report section
-- CLI:
+## Traffic Flow Debugging
+
+### Enabling Debug Flow
+```bash
+diagnose debug reset
+diagnose debug enable
+diagnose debug flow show function-name enable
+diagnose debug flow filter addr <IP>
+diagnose debug flow trace start <count>
+```
+- Observe flow handling, route lookup, NAT policy application, and session creation.
+
+### Disabling Debug
+```bash
+diagnose debug disable
+```
+
+## Packet Capture (Sniffer)
+
+### Capture Commands
+```bash
+diagnose sniffer packet <interface> '<filter>' <verbosity> <count>
+```
+- Common filters: `host 192.168.1.1`, `port 443`
+- Verbosity levels:
+  - 1: summary
+  - 2: headers
+  - 4: full packet details
+
+### Save for Offline Analysis
+- Export via GUI or:
+  ```bash
+  execute packet-capture
+  ```
+
+## VPN Diagnostics
+
+### SSL VPN
+- View session info:
+  ```bash
+  diagnose vpn ssl monitor
+  ```
+- Debug:
+  ```bash
+  diagnose debug application sslvpn -1
+  diagnose debug enable
+  ```
+
+### IPsec VPN
+- Show tunnel summary:
+  ```bash
+  get vpn ipsec tunnel summary
+  ```
+- Debug IKE negotiation:
+  ```bash
+  diagnose debug application ike -1
+  diagnose debug enable
+  ```
+
+## Routing and Session Table Analysis
+
+### Routing Table
+- View active routes:
+  ```bash
+  get router info routing-table all
+  ```
+
+### Session Table
+- List active sessions:
+  ```bash
+  diagnose sys session list
+  ```
+- Apply filters:
+  ```bash
+  diagnose sys session filter src <IP>
+  ```
+
+## Performance Monitoring
+
+- CPU and memory usage:
+  ```bash
+  get system performance status
+  diagnose sys top
+  ```
+- Per-process CPU usage:
+  ```bash
+  diagnose sys process top
+  ```
+
+## Log Analysis
+
+- View real-time logs:
   ```bash
   execute log display
   ```
-
-### Configure Log Filters
-- Filter by time, severity, message ID, etc.:
+- Filter logs:
   ```bash
   execute log filter field <field> <value>
   ```
 
-## Packet Capture
+## CLI Command Tips
 
-- Captures packets on specified interface:
-  ```bash
-  diagnose sniffer packet <interface> '<filter>' <verbose> <count>
-  ```
-- Example:
-  ```bash
-  diagnose sniffer packet any 'host 192.168.1.10' 4 10
-  ```
-- Output Levels:
-  - 1: brief headers
-  - 2: headers with addresses and ports
-  - 4: full packet details
-
-## Debugging
-
-### Enable Debugging
-1. Enable debugging:
-   ```bash
-   diagnose debug enable
-   ```
-2. Set filters (optional):
-   ```bash
-   diagnose debug flow filter addr <IP>
-   ```
-3. Start flow debugging:
-   ```bash
-   diagnose debug flow show function-name enable
-   diagnose debug flow trace start <count>
-   ```
-
-### Disable Debugging
-```bash
-diagnose debug disable
-diagnose debug reset
-```
-
-## Network Tools
-
-- Check ARP table:
-  ```bash
-  get system arp
-  ```
-- View routing table:
-  ```bash
-  get router info routing-table all
-  ```
-- IPsec tunnel status:
-  ```bash
-  diagnose vpn tunnel list
-  ```
-
-## CPU and Memory Monitoring
-
-- CPU usage:
-  ```bash
-  get system performance top
-  ```
-- Memory usage:
-  ```bash
-  diagnose sys top
-  ```
-
-## Session Table
-
-- View sessions:
-  ```bash
-  diagnose sys session list
-  ```
-- Filter by source or destination:
-  ```bash
-  diagnose sys session filter src <IP>
-  diagnose sys session filter dst <IP>
-  ```
+- Use `?` for command help.
+- Pipe output with `| grep <keyword>` to filter long outputs.
+- Log all debug output to memory with `diagnose debug console timestamp enable`.
 
 ## Best Practices
 
-- Use filters to reduce debug output and focus on relevant data.
-- Always disable debug after use to prevent performance impact.
-- Save important log files before rebooting.
-- Regularly monitor resource usage to preempt issues.
+- Always disable debug after use.
+- Use filters to reduce output volume and focus on relevant data.
+- Collect logs before rebooting or upgrading.
+- Maintain out-of-band access via console port for recovery.
+- Document and automate common diagnostic workflows.
 
