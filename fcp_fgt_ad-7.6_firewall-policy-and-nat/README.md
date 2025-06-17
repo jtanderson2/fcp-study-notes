@@ -1,4 +1,4 @@
-# FortiGate 7.6 – Firewall Policy and NAT
+# FortiGate 7.6 – Section 02: Firewall Policy and NAT
 
 ## Firewall Policies
 
