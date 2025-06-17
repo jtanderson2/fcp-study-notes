@@ -1,4 +1,4 @@
-# FortiGate 7.6 – System and Network Settings
+# FortiGate 7.6 – Section 01: System and Network Settings
 
 ## Initial Setup
 
