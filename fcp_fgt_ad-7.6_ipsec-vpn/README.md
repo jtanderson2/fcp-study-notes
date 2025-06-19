@@ -88,6 +88,7 @@ IPsec (Internet Protocol Security) VPNs provide secure communication tunnels ove
 - Show detailed Phase 1/2 status:
   ```bash
   diagnose vpn tunnel list
+  diagnose vpn ike gateway list
   ```
 - Debug IKE negotiation:
   ```bash
