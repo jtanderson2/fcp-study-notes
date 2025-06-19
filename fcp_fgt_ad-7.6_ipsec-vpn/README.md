@@ -50,9 +50,9 @@ IPsec (Internet Protocol Security) VPNs provide secure communication tunnels ove
   - PFS (Perfect Forward Secrecy)
   - Lifetime (default: 3600 seconds)
 
-### Interface vs. Policy-Based VPN
+### Route-Based vs. Policy-Based VPN
 
-#### Interface-based (Route-based VPN)
+#### Route-based VPN
 - Creates a virtual IPsec interface (e.g., `vpn-to-branch`).
 - Integrated with routing (static or dynamic).
 - Enables granular control via firewall policies.
